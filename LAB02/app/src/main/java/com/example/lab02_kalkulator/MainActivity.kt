@@ -44,6 +44,21 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        // Przycisk kropki (.)
+        findViewById<Button>(R.id.btnDot).setOnClickListener {
+            if (isNewOperation) {
+                currentInput = "0"
+                isNewOperation = false
+            }
+            if (!currentInput.contains(".")) {
+                if (currentInput.isEmpty()) {
+                    currentInput = "0"
+                }
+                currentInput += "."
+                tvResult.text = currentInput
+            }
+        }
+
         // Przycisk czyszczenia (C)
         findViewById<Button>(R.id.btnC).setOnClickListener {
             currentInput = ""
@@ -53,9 +68,45 @@ class MainActivity : AppCompatActivity() {
             isNewOperation = true
         }
 
-        // Operatory arytmetyczne
+        // Przycisk usuwania jednej cyfry (DEL)
+        findViewById<Button>(R.id.btnDEL).setOnClickListener {
+            if (currentInput.isNotEmpty()) {
+                currentInput = currentInput.dropLast(1)
+                if (currentInput.isEmpty() || currentInput == "-") {
+                    currentInput = ""
+                    tvResult.text = "0"
+                } else {
+                    tvResult.text = currentInput
+                }
+            }
+        }
+
+        // Przycisk zmiany znaku (+/-)
+        findViewById<Button>(R.id.btnPlusMinus).setOnClickListener {
+            if (currentInput.isNotEmpty() && currentInput != "0") {
+                currentInput = if (currentInput.startsWith("-")) {
+                    currentInput.substring(1)
+                } else {
+                    "-$currentInput"
+                }
+                tvResult.text = currentInput
+            }
+        }
+
+        // Przycisk obliczania procentu (%)
+        findViewById<Button>(R.id.btnPercent).setOnClickListener {
+            if (currentInput.isNotEmpty()) {
+                val value = currentInput.toDouble() / 100.0
+                tvResult.text = if (value % 1.0 == 0.0) value.toInt().toString() else value.toString()
+                currentInput = tvResult.text.toString()
+                isNewOperation = true
+            }
+        }
+
+        // Operatory arytmetyczne (+, -, *, /)
         val operatorButtons = listOf(
             Pair(R.id.btnPlus, "+"),
+            Pair(R.id.btnMinus, "-"),
             Pair(R.id.btnMultiply, "*"),
             Pair(R.id.btnDivide, "/")
         )
@@ -76,6 +127,7 @@ class MainActivity : AppCompatActivity() {
                 val secondValue = currentInput.toDouble()
                 val result = when (currentOperator) {
                     "+" -> firstValue + secondValue
+                    "-" -> firstValue - secondValue
                     "*" -> firstValue * secondValue
                     "/" -> if (secondValue != 0.0) firstValue / secondValue else 0.0
                     else -> 0.0
