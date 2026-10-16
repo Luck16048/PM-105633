@@ -5,6 +5,7 @@ import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
 
@@ -106,7 +107,11 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.btnPercent).setOnClickListener {
             if (currentInput.isNotEmpty()) {
                 val value = currentInput.toDouble() / 100.0
-                tvResult.text = if (value % 1.0 == 0.0) value.toInt().toString() else value.toString()
+                tvResult.text = if (value % 1.0 == 0.0) {
+                    value.toInt().toString()
+                } else {
+                    String.format(Locale.US, "%.2f", value)
+                }
                 currentInput = tvResult.text.toString()
                 isNewOperation = true
             }
@@ -145,7 +150,11 @@ class MainActivity : AppCompatActivity() {
                     "/" -> if (secondValue != 0.0) firstValue / secondValue else 0.0
                     else -> 0.0
                 }
-                tvResult.text = if (result % 1.0 == 0.0) result.toInt().toString() else result.toString()
+                tvResult.text = if (result % 1.0 == 0.0) {
+                    result.toInt().toString()
+                } else {
+                    String.format(Locale.US, "%.2f", result)
+                }
                 Log.d(TAG, "Wynik operacji: ${tvResult.text}")
 
                 currentInput = tvResult.text.toString()
