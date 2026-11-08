@@ -1,0 +1,21 @@
+package com.example.lab05app
+
+import android.os.Bundle
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+
+class SecondActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_second)
+
+        val tvWelcomeMessage = findViewById<TextView>(R.id.tvWelcomeMessage)
+
+        val userName = intent.getStringExtra("USER_NAME")?.takeIf { it.isNotBlank() } ?: "Karyna"
+        val studentId = intent.getStringExtra("STUDENT_ID")?.takeIf { it.isNotBlank() } ?: "105633"
+
+        tvWelcomeMessage.text = "Witaj, $userName!\nTwój numer studenta: $studentId"
+    }
+}
+
+
