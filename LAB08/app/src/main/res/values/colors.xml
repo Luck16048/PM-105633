@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  Karyna 105633  -->
+<resources>
+    <color name="primary_light">#B89576</color>
+    <color name="on_primary_light">#FFFFFF</color>
+    <color name="card_background_light">#F3EAE0</color>
+    <color name="background_light">#FAF7F2</color>
+    <color name="text_primary_light">#49382E</color>
+    <color name="text_secondary_light">#927E70</color>
+
+    <color name="primary_dark">#D0AE8D</color>
+    <color name="on_primary_dark">#3D2D23</color>
+    <color name="card_background_dark">#40352E</color>
+    <color name="background_dark">#29221E</color>
+    <color name="text_primary_dark">#F5EDE4</color>
+    <color name="text_secondary_dark">#C0AA97</color>
+</resources>
